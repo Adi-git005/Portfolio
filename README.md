@@ -1,4 +1,3 @@
-My name is 
-# Adityalal Das
+### My name is Adityalal Das
 i'm from CSBS at GMIT.<br>
 It is my first and simple portfolio .<br>
