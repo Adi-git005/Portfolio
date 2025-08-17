@@ -15,4 +15,4 @@ window.addEventListener('scroll', ()=> {
         navbar.style.backgroundColor = 'rgba(10, 10, 10, 0.98)' :
         navbar.style.backgroundColor = 'rgba(10, 10, 10, 0.95)';
     }
-});
+);
