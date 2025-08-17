@@ -16,3 +16,4 @@ window.addEventListener('scroll', ()=> {
         navbar.style.backgroundColor = 'rgba(10, 10, 10, 0.95)';
     }
 );
+//contact form submission
