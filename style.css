@@ -102,6 +102,22 @@ body{
     margin-bottom: 1.5rem;
     background: linear-gradient(45deg, var(--accent) 30%, #ffffff 70%);
     -webkit-background-clip: text;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+.hero p{
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    max-width: 600px;
+}.cta-button{
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg,var(--accent),#27ae60);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position:relative;
+    overflow: hidden;
 }
