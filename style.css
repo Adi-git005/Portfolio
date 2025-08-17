@@ -121,3 +121,80 @@ body{
     position:relative;
     overflow: hidden;
 }
+.skills{
+    padding: 5rem 5%;
+    background: var(--darker-bg);
+}
+.skills-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+.skill-card{
+    background: rgba(255, 255, 255, 0.5);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+.skill-card:hover{
+    transform: translateY(-10px);
+    border-color:var(--accent);
+    box-shadow: 0 10px 30px var(--accent-glow);
+}
+.skill-card i{
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+footer{
+    background: var(--darker-bg);
+    padding: 3rem 5%;
+    text-align: center;
+    color: var(--text);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.social-links{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+.social-links a{
+    color: var(--text);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+.social-links a:hover{
+    color: var(--accent);
+    transform: translate(-3px);
+}
+@media (max-width: 768px) {
+    .nav-links{
+        display:none;
+    }
+    .hero{
+        flex-direction: column;
+        text-align: center;
+        padding-top:8rem;
+    }
+    .hero .content{
+        padding-right: 0;
+        margin-bottom: 3rem;
+    }
+    .profile-image{
+        width: 280px;
+        height: 280px;
+    }
+    .hero h1{
+        font-size: 2.5rem;
+    }
+    .logo{
+        font-size: 1.5rem;
+        padding-left:2rem;
+    }
+    
+}
