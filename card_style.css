@@ -1,0 +1,61 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+body{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+}
+.card {
+    width: 320px;
+    height: 400px;
+    background: rgba(225, 225, 225, 0.05);
+    border-radius: 20px;
+    padding: 30px,20px;
+    color: #fff;
+    text-align: center;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease;
+    border: 3px solid rgba(225, 225, 225, 0.3);
+}
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 40px rgba(225,225,225,0.1);
+}
+.card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(225, 225, 225, 0.03);
+    margin-bottom: 15px;
+}
+.card h2 {
+    font-size: 22px;
+    font-weight: bold;
+}
+.card .role {
+    font-size: 14px;
+    color: #ccc;
+    margin-top: 4px ;
+}
+.card .bio {
+    font-size: 13px;
+    color: #ddd;
+    margin: 12px 0;
+}
+.social-icons {
+    margin: 15px 0;
+}
+.social-icons a {
+    color: #fff;
+    font-size: 18px;
+    margin: 0 8px;
+    transition: color 0.3s ease;
+}
