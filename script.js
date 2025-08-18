@@ -17,3 +17,22 @@ window.addEventListener('scroll', ()=> {
     }
 );
 //contact form submission
+
+const form = document.querySelector('form');
+function sendEmail() {
+import smtp from 'smtp.js';
+
+
+const email = {
+
+  from: 'sender@example.com',
+  to: 'recipient@example.com',
+  subject: 'Test email',
+  text: 'This is a test email sent from the browser'
+
+}
+
+
+smtp.sendMail(email)
+  .then(info =&gt; console.log(info))
+  .catch(err =&gt; console.error(err)) }
