@@ -3,9 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Form</title>
+    <title>Rate Your Experience - Code Caffeine</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .rate-us-container {
+            max-width: 600px;
+            margin: 100px auto 50px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .rate-us-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .rate-us-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--accent) 30%, #ffffff 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .rate-us-header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .rating-section {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .rating-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .star {
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .star:hover,
+        .star.active {
+            color: #ffd700;
+            transform: scale(1.1);
+        }
+
+        .rating-text {
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            min-height: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, var(--accent), #27ae60);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--accent-glow);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .success-message i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .rate-us-container {
+                margin: 80px 1rem 2rem;
+                padding: 1.5rem;
+            }
+            
+            .rate-us-header h1 {
+                font-size: 2rem;
+            }
+            
+            .star {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1><big>RATE US YOUR EXPERIENCE</big></h1>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">Code Caffeine</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#skills">Skills</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="rate_us.html">Rate Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="rate-us-container">
+        <div class="rate-us-header">
+            <h1>Rate Your Experience</h1>
+            <p>We value your feedback! Help us improve our services.</p>
+        </div>
+
+        <form id="rateUsForm">
+            <div class="rating-section">
+                <h3>Overall Experience</h3>
+                <div class="star-rating" id="overallRating">
+                    <i class="fas fa-star star" data-rating="1"></i>
+                    <i class="fas fa-star star" data-rating="2"></i>
+                    <i class="fas fa-star star" data-rating="3"></i>
+                    <i class="fas fa-star star" data-rating="4"></i>
+                    <i class="fas fa-star star" data-rating="5"></i>
+                </div>
+                <div class="rating-text" id="overallText">Click to rate</div>
+            </div>
+
+            <div class="rating-section">
+                <h3>Quality of Service</h3>
+                <div class="star-rating" id="qualityRating">
+                    <i class="fas fa-star star" data-rating="1"></i>
+                    <i class="fas fa-star star" data-rating="2"></i>
+                    <i class="fas fa-star star" data-rating="3"></i>
+                    <i class="fas fa-star star" data-rating="4"></i>
+                    <i class="fas fa-star star" data-rating="5"></i>
+                </div>
+                <div class="rating-text" id="qualityText">Click to rate</div>
+            </div>
+
+            <div class="rating-section">
+                <h3>Response Time</h3>
+                <div class="star-rating" id="responseRating">
+                    <i class="fas fa-star star" data-rating="1"></i>
+                    <i class="fas fa-star star" data-rating="2"></i>
+                    <i class="fas fa-star star" data-rating="3"></i>
+                    <i class="fas fa-star star" data-rating="4"></i>
+                    <i class="fas fa-star star" data-rating="5"></i>
+                </div>
+                <div class="rating-text" id="responseText">Click to rate</div>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="service">Service Used</label>
+                <select id="service" name="service" required>
+                    <option value="">Select a service</option>
+                    <option value="web-development">Web Development</option>
+                    <option value="ui-design">UI/UX Design</option>
+                    <option value="consultation">Consultation</option>
+                    <option value="maintenance">Maintenance</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="feedback">Detailed Feedback</label>
+                <textarea id="feedback" name="feedback" placeholder="Tell us about your experience... What did you like? What could we improve?" required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <i class="fas fa-paper-plane"></i> Submit Feedback
+            </button>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            <h3>Thank You!</h3>
+            <p>Your feedback has been submitted successfully. We appreciate your time and will use your insights to improve our services.</p>
+            <a href="index.html" class="cta-button">Back to Home</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Code Caffeine. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fas fa-envelope"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Star rating functionality
+        const ratingGroups = [
+            { container: 'overallRating', text: 'overallText', labels: ['Poor', 'Fair', 'Good', 'Very Good', 'Excellent'] },
+            { container: 'qualityRating', text: 'qualityText', labels: ['Poor', 'Fair', 'Good', 'Very Good', 'Excellent'] },
+            { container: 'responseRating', text: 'responseText', labels: ['Very Slow', 'Slow', 'Average', 'Fast', 'Very Fast'] }
+        ];
+
+        const ratings = {
+            overallRating: 0,
+            qualityRating: 0,
+            responseRating: 0
+        };
+
+        ratingGroups.forEach(group => {
+            const container = document.getElementById(group.container);
+            const textElement = document.getElementById(group.text);
+            const stars = container.querySelectorAll('.star');
+
+            stars.forEach((star, index) => {
+                star.addEventListener('click', () => {
+                    const rating = index + 1;
+                    const groupName = group.container;
+                    
+                    ratings[groupName] = rating;
+                    
+                    // Update star display
+                    stars.forEach((s, i) => {
+                        s.classList.toggle('active', i < rating);
+                    });
+                    
+                    // Update text
+                    textElement.textContent = group.labels[index];
+                });
+
+                star.addEventListener('mouseenter', () => {
+                    stars.forEach((s, i) => {
+                        s.style.color = i <= index ? '#ffd700' : 'rgba(255, 255, 255, 0.3)';
+                    });
+                });
+            });
+
+            container.addEventListener('mouseleave', () => {
+                stars.forEach((s, i) => {
+                    s.style.color = i < ratings[group.container] ? '#ffd700' : 'rgba(255, 255, 255, 0.3)';
+                });
+            });
+        });
+
+        // Form submission
+        document.getElementById('rateUsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const formData = new FormData(this);
+            
+            // Validate ratings
+            if (ratings.overallRating === 0 || ratings.qualityRating === 0 || ratings.responseRating === 0) {
+                alert('Please provide ratings for all categories.');
+                return;
+            }
+            
+            // Add ratings to form data
+            formData.append('overall_rating', ratings.overallRating);
+            formData.append('quality_rating', ratings.qualityRating);
+            formData.append('response_rating', ratings.responseRating);
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            
+            // Simulate form submission (replace with actual endpoint)
+            setTimeout(() => {
+                document.getElementById('rateUsForm').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Log form data (in production, send to server)
+                console.log('Form Data:', Object.fromEntries(formData));
+            }, 1500);
+        });
+    </script>
 </body>
 </html>
