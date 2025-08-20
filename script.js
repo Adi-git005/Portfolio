@@ -39,7 +39,7 @@ window.addEventListener('scroll', () => {
  */
 
 // Initialize EmailJS (replace with your actual credentials)
-// emailjs.init('YOUR_USER_ID'); // Uncomment and replace with your EmailJS user ID
+emailjs.init('zh06HMfFUbe9fol_D'); // Uncomment and replace with your EmailJS user ID
 
 // Handle rate us form submission
 document.addEventListener('DOMContentLoaded', () => {
@@ -63,12 +63,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 overall_rating: ratings.overall,
                 quality_rating: ratings.quality,
                 response_rating: ratings.response,
-                to_email: 'your-email@domain.com' // Replace with your email
+                to_email: 'aditya2005321@gmail.com' // Replace with your email
             };
             
             try {
                 // Send via EmailJS
-                await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams);
+                await emailjs.send('service_v9cfurs', 'template_8rtw6cf', templateParams);
                 document.getElementById('successMessage').style.display = 'block';
                 document.getElementById('rateUsForm').style.display = 'none';
             } catch (error) {
