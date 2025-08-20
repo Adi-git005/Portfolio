@@ -1,8 +1,6 @@
-smtp.sendMail(email)
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
-        // ignore links that are just "#"
         const target = this.getAttribute('href');
         if (!target || target === '#') return;
         e.preventDefault();
@@ -18,77 +16,222 @@ window.addEventListener('scroll', () => {
     navbar.style.backgroundColor = window.scrollY > 50 ? 'rgba(10, 10, 10, 0.98)' : 'rgba(10, 10, 10, 0.95)';
 });
 
-// -----------------------------
-// Contact form using EmailJS
-// -----------------------------
+// ==========================================
+// RATE US FORM API INTEGRATION
+// ==========================================
+
+// ==========================================
+// OPTION 1: EMAILJS (Recommended for beginners)
+// ==========================================
 /*
-  This contact handler uses EmailJS (https://www.emailjs.com/) to send emails
-  directly from the browser without exposing your SMTP password.
+ * EmailJS Setup Instructions:
+ * 1. Sign up at https://www.emailjs.com/
+ * 2. Create an Email Service (Gmail, Outlook, etc.)
+ * 3. Create an Email Template with these variables:
+ *    - from_name
+ *    - from_email
+ *    - message
+ *    - overall_rating
+ *    - quality_rating
+ *    - response_rating
+ *    - service
+ * 4. Get your Service ID, Template ID, and User ID
+ */
 
-  Steps to set up (quick):
-  1. Sign up at EmailJS and create an Email Service (e.g. Gmail, Outlook).
-  2. Create an Email Template and include the variables used below
-     (from_name, from_email, message). You may also configure the recipient
-     in the EmailJS template dashboard.
-  3. Copy your EmailJS "Service ID", "Template ID" and "User ID".
-  4. Replace the placeholders below: YOUR_SERVICE_ID, YOUR_TEMPLATE_ID, YOUR_USER_ID.
+// Initialize EmailJS (replace with your actual credentials)
+// emailjs.init('YOUR_USER_ID'); // Uncomment and replace with your EmailJS user ID
 
-  Where to add your recipient email:
-  - Prefer to set the recipient in the EmailJS template (in EmailJS dashboard).
-  - Alternatively, you can add a `to_email` key to templateParams below and
-    use it in the template; see the marked line: "// <-- ADD YOUR EMAIL HERE".
-
-  Note: Remember not to commit your actual user/service/template IDs to a public repo.
-*/
-
+// Handle rate us form submission
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form');
-    if (!form) return;
+    const rateUsForm = document.getElementById('rateUsForm');
+    if (rateUsForm) {
+        rateUsForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const ratings = {
+                overall: document.querySelectorAll('#overallRating .star.active').length,
+                quality: document.querySelectorAll('#qualityRating .star.active').length,
+                response: document.querySelectorAll('#responseRating .star.active').length
+            };
+            
+            const templateParams = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                service: formData.get('service'),
+                feedback: formData.get('feedback'),
+                overall_rating: ratings.overall,
+                quality_rating: ratings.quality,
+                response_rating: ratings.response,
+                to_email: 'your-email@domain.com' // Replace with your email
+            };
+            
+            try {
+                // Send via EmailJS
+                await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams);
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('rateUsForm').style.display = 'none';
+            } catch (error) {
+                alert('Error sending feedback: ' + error.text);
+            }
+        });
+    }
+});
 
-    // Initialize EmailJS - REPLACE with your user ID below
-    // Example: emailjs.init('user_ABC123xyz');
-    // ----> Add your EmailJS user id here:
-    // emailjs.init('YOUR_USER_ID');
+// ==========================================
+// OPTION 2: CUSTOM REST API
+// ==========================================
+/*
+ * Custom API Setup Instructions:
+ * 1. Create your API endpoint at your backend
+ * 2. Endpoint should accept POST requests with JSON body
+ * 3. Expected JSON structure:
+ *    {
+ *      "name": "string",
+ *      "email": "string",
+ *      "service": "string",
+ *      "feedback": "string",
+ *      "overall_rating": number,
+ *      "quality_rating": number,
+ *      "response_rating": number
+ *    }
+ */
 
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
+async function submitFeedbackAPI(feedbackData) {
+    try {
+        const response = await fetch('https://your-api-endpoint.com/api/feedback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer YOUR_API_KEY' // If needed
+            },
+            body: JSON.stringify(feedbackData)
+        });
+        
+        if (!response.ok) throw new Error('Network response was not ok');
+        
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
 
-        const name = (form.querySelector('input[name="name"]') || {}).value || '';
-        const from_email = (form.querySelector('input[name="_replyto"]') || {}).value || '';
-        const message = (form.querySelector('textarea[name="message"]') || {}).value || '';
+// Usage example:
+// const rateUsForm = document.getElementById('rateUsForm');
+// if (rateUsForm) {
+//     rateUsForm.addEventListener('submit', async function(e) {
+//         e.preventDefault();
+//         const formData = new FormData(this);
+//         const feedbackData = {
+//             name: formData.get('name'),
+//             email: formData.get('email'),
+//             service: formData.get('service'),
+//             feedback: formData.get('feedback'),
+//             overall_rating: document.querySelectorAll('#overallRating .star.active').length,
+//             quality_rating: document.querySelectorAll('#qualityRating .star.active').length,
+//             response_rating: document.querySelectorAll('#responseRating .star.active').length
+//         };
+//         
+//         try {
+//             const result = await submitFeedbackAPI(feedbackData);
+//             document.getElementById('successMessage').style.display = 'block';
+//             document.getElementById('rateUsForm').style.display = 'none';
+//         } catch (error) {
+//             alert('Error submitting feedback: ' + error.message);
+//         }
+//     });
+// }
 
-        if (!name || !from_email || !message) {
-            alert('Please fill in all fields before sending.');
-            return;
-        }
+// ==========================================
+// OPTION 3: FIREBASE (Alternative)
+// ==========================================
+/*
+ * Firebase Setup Instructions:
+ * 1. Create a Firebase project at https://console.firebase.google.com/
+ * 2. Add Firebase to your web app
+ * 3. Enable Firestore database
+ * 4. Configure Firebase in your project
+ */
 
-        // Replace these IDs with your EmailJS values
-        const SERVICE_ID = 'YOUR_SERVICE_ID';
-        const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-        // If you didn't call emailjs.init above, you can pass your user id here as the 4th arg to send()
-        const USER_ID = 'YOUR_USER_ID';
+// Firebase configuration (replace with your actual config)
+// const firebaseConfig = {
+//     apiKey: "YOUR_API_KEY",
+//     authDomain: "YOUR_PROJECT.firebaseapp.com",
+//     databaseURL: "https://YOUR_PROJECT.firebaseio.com",
+//     projectId: "YOUR_PROJECT",
+//     storageBucket: "YOUR_PROJECT.appspot.com",
+//     messagingSenderId: "YOUR_SENDER_ID",
+//     appId: "YOUR_APP_ID"
+// };
 
-        const templateParams = {
-            from_name: name,
-            from_email: from_email,
-            message: message,
-            // to_email: 'your@yourdomain.com' // <-- ADD YOUR EMAIL HERE (optional; better to set in EmailJS template)
-        };
+// Initialize Firebase
+// firebase.initializeApp(firebaseConfig);
+// const db = firebase.firestore();
 
-        if (typeof emailjs === 'undefined') {
-            alert('EmailJS SDK not found. Make sure you included the EmailJS script in your HTML.');
-            return;
-        }
+// Usage example:
+// const rateUsForm = document.getElementById('rateUsForm');
+// if (rateUsForm) {
+//     rateUsForm.addEventListener('submit', async function(e) {
+//         e.preventDefault();
+//         const formData = new FormData(this);
+//         const feedbackData = {
+//             name: formData.get('name'),
+//             email: formData.get('email'),
+//             service: formData.get('service'),
+//             feedback: formData.get('feedback'),
+//             ratings: {
+//                 overall: document.querySelectorAll('#overallRating .star.active').length,
+//                 quality: document.querySelectorAll('#qualityRating .star.active').length,
+//                 response: document.querySelectorAll('#responseRating .star.active').length
+//             },
+//             timestamp: firebase.firestore.FieldValue.serverTimestamp()
+//         };
+//         
+//         try {
+//             await db.collection('feedback').add(feedbackData);
+//             document.getElementById('successMessage').style.display = 'block';
+//             document.getElementById('rateUsForm').style.display = 'none';
+//         } catch (error) {
+//             alert('Error submitting feedback: ' + error.message);
+//         }
+//     });
+// }
 
-        // If you called emailjs.init(USER_ID) above you can omit the last argument below
-        emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams /*, USER_ID */)
-            .then(function (response) {
-                console.log('SUCCESS!', response.status, response.text);
-                alert('Message sent — thank you!');
-                form.reset();
-            }, function (err) {
-                console.error('FAILED...', err);
-                alert('Sorry — something went wrong. Please try again later.');
-            });
-    });
+// ==========================================
+// UTILITY FUNCTIONS
+// ==========================================
+
+// Function to get star ratings
+function getStarRating(containerId) {
+    return document.querySelectorAll(`#${containerId} .star.active`).length;
+}
+
+// Function to validate form
+function validateForm() {
+    const overallRating = getStarRating('overallRating');
+    const qualityRating = getStarRating('qualityRating');
+    const responseRating = getStarRating('responseRating');
+    
+    if (overallRating === 0 || qualityRating === 0 || responseRating === 0) {
+        alert('Please provide ratings for all categories.');
+        return false;
+    }
+    return true;
+}
+
+// Initialize form handling
+document.addEventListener('DOMContentLoaded', () => {
+    const rateUsForm = document.getElementById('rateUsForm');
+    if (rateUsForm) {
+        rateUsForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) return;
+            
+            // Add your chosen API implementation here
+            // Uncomment the option you want to use from above
+        });
+    }
 });
