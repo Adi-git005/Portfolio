@@ -172,6 +172,29 @@ footer{
     color: var(--accent);
     transform: translate(-3px);
 }
+
+.rate {
+    margin-top: 2rem;
+}
+
+.rate button {
+    padding: 0.8rem 2rem;
+    background: var(--accent);
+    color: var(--text);
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.rate button:hover {
+    background: #27ae60;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--accent-glow);
+}
+
 @media (max-width: 768px) {
     .nav-links{
         display:none;
