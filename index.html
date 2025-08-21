@@ -3,85 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aditya's Portfolio</title>
+    <title>Aditya's Profile Card</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="shortcut icon" href="image.png" type="image/x-icon" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="card_style.css">
 </head>
 <body>
-    <nav class="navbar">
-        <a href="#home" class="logo">Adityalal Das</a>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects" onclick="alert('Projects have not available yet')">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="rate_us.html">Rate Us</a></li>
-        </ul>
-    </nav>
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Welcome to My Portfolio</h1>
-            <p>I'm Adityalal Das, a passionate developer.</p>
-            <a href="#contact" class="cta-button">Let's Connect</a>
+    <div class="card">
+        <img src="profile_image.jpg" alt="Profile Picture">
+        <h2>Adityalal Das</h2>
+        <p class="role">Frontend Developer | Backend Developer</p>
+        <p class="bio"> Passionate about UI/UX and clean code.</p>
+        <div class="social-icons">
+            <a href="https://www.github.com/Adi-git005" target="_blank"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.youtube.com/@Taj2005" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/adityadas6142" target="_blank"><i class="fa-brands fa-instagram"></i></a>
         </div>
-        <div class="hero-image">
-            <img src="image.jpg" alt="Adityalal Das" class="profile-image">
+
+        <div class="btn">
+            <button onclick="document.location='index.html'">View Profile</button>
+            <button onclick="alert('CV is not available yet !')">Downloade CV</button>
         </div>
-    </section>
-    <section id="skills" class="skills">
-        <h2>Technical Expertise</h2>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <i class="fas fa-code"></i>
-                <h3>Frontend Developer</h3>
-                <i class="fab fa-html5"></i>
-                <p>HTML5,CSS3,JavaScript</p>
-            </div>
-            <div class="skill-card">
-                <i class="fas fa-server"></i>
-                <h3>Backend Developer</h3>
-                <i class="fab fa-python"></i>
-                <p>Python<!--,Node.js, Express.js, MongoDB--></p>
-            </div>
-            <div class="skill-card">
-                <i class="fas fa-paint-brush"></i>
-                <h3>UI/UX Design</h3>
-                <p>Figma,Adobe,user testing</p>
-            </div>
-        </div>
-    </section>
-    <section id="contact" class="contact">
-        <div class="contact-container">
-            <form action="#" method="POST">
-                <h2>Contact Me</h2>
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="_replyto" placeholder="Your Email" required>
-                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
-            <div class="contact-info">
-                <h3>Get in Touch</h3>
-                <p>Email: <a href="mailto:aditya2005321@gmail.com">aditya2005321@gmail.com</a></p>
-                <p>Phone: <a href="tel:+917318960088">+91 7318960088</a></p>
-                <p>Location: India</p>
-            </div>
-        </div>
-    </section>
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Adityalal Das. All rights reserved.</p>
-            <div class="social-links">
-                <a href="https://github.com/Adi-git005" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://www.youtube.com/@Taj2005" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="https://www.instagram.com/adityadas6142/" target="_blank"><i class="fab fa-instagram"></i></a>
-            </div>
-            <div class="rate">
-                <button onclick="document.location='rate_us.html'">Rate Us</button>
-            </div>
-    </footer>
+    </div>
 </body>
-<script src="https://unpkg.com/smtp.js/dist/smtp.min.js"></script>
-<script src="script.js"></script>
 </html>
