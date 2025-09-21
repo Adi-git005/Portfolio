@@ -246,15 +246,25 @@ footer{
     color: var(--accent);
 }
 
+.projects .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 0 5%;
+    margin-top: 2rem;
+}
+
 .project-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
     padding: 2rem;
-    margin: 2rem auto;
-    max-width: 800px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
     backdrop-filter: blur(5px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .project-card:hover {
@@ -284,10 +294,15 @@ footer{
     text-decoration: none;
     border: none;
     border-radius: 8px;
-    font-weight: 600;
-    font-size: 1rem;
+    font-weight: 400;
+    font-size: 0.95rem;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+.project-card button{
+    width: 50%;
+    margin: 0 auto;
 }
 
 .project-card button:hover,
