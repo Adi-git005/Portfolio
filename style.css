@@ -65,6 +65,25 @@ body{
 .nav-links a:hover::after{
     width: 100%;
 }
+
+.nav-links button {
+    padding: 0.6rem 1.2rem;
+    background: var(--accent);
+    color: var(--text);
+    border: none;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-links button:hover {
+    background: #27ae60;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--accent-glow);
+}
+
 .hero{
     display: flex;
     min-height: 100vh;
